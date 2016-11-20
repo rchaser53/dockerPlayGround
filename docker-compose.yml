@@ -1,0 +1,19 @@
+servern:
+ image: "server"
+ volumes_from:
+ - vim
+ container_name: "server"
+ ports: 
+ - "3000:3000"
+ links:
+ - "vim"
+ #tty: true
+ command:
+  "npm start"
+
+vim:
+ image: "vimd"
+ container_name: "vimd"
+ volumes:
+ - "~/Desktop/dockerServerTest/public:/home/app/public"
+ tty: true
