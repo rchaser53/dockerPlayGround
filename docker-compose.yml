@@ -1,27 +1,10 @@
-servern:
- image: "server"
- volumes_from:
- - "vim"
- - "node_module"
+server:
+ image: "blank_node"
+ volumes:
+ - "~/Desktop/dockerServerTest/volume:/home/app/"
  container_name: "server"
  ports: 
  - "3000:3000"
+ tty: true
  command:
   "npm start"
-
-vim:
- image: "vimd"
- container_name: "vim"
- volumes_from:
- - "node_module"
- volumes:
- - "~/Desktop/dockerServerTest/public:/home/app/public"
- - "~/Desktop/dockerServerTest/src:/home/app/src"
- tty: true
-
-node_module:
- image: "vimd"
- container_name: "node_module"
- volumes:
- - "~/Desktop/dockerServerTest/node_modules:/home/app/node_modules"
- tty: true
