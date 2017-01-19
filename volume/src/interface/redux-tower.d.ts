@@ -1,6 +1,7 @@
 declare module "redux-tower"
 { 
 	export var createHashHistory;
+	export var createBrowserHistory;
 	export var saga;
 	export var reducer;
 	export interface createBrowserHistory{}
