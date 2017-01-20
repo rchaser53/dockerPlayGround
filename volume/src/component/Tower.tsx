@@ -1,8 +1,11 @@
 import * as React from 'react'
 
-export class Index extends React.Component<{}, {}> {
+export interface Props {
+	test: number
+}
+export class Index extends React.Component<Props, {}> {
 	render() {
-		return <div>testTower</div>
+		return <div>{this.props.test}</div>
 	}
 }
 export default Index
