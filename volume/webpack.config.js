@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-
 module.exports = {
   devtool: 'inline-source-map',
   entry: [
@@ -13,25 +12,33 @@ module.exports = {
     publicPath: '/public/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+	new webpack.LoaderOptionsPlugin({
+		options: {
+			tslint: {
+				emitErrors: false,
+				failOnHint: false,
+				resourcePath: 'src'
+			}
+		}
+	})
   ],
   resolve: {
-    extensions: ['', '.json', '.js', '.jsx', '.ts', '.tsx', '.css']
+    extensions: ['.json', '.js', '.jsx', '.ts', '.tsx', '.css']
   },
   module: {
-    preLoaders:[
+    rules: [
+      {
+		enforce: 'pre',
+        test: /\.(ts|tsx)$/,
+        loader: 'tslint-loader',
+		exclude: /(node_modules)/
+      },      
       {
         test: /\.(ts|tsx)$/,
-        loader: 'tslint',
-        include: path.join(__dirname, 'src')
-      }      
-    ],
-    loaders: [
-      {
-        test: /\.(ts|tsx)$/,
-        loaders: ['babel', 'ts'],
+        loaders: ['babel-loader', 'ts-loader'],
         include: path.join(__dirname, 'src')
       },
 			{ test: /\.json$/, loader: 'json-loader' },
@@ -39,7 +46,7 @@ module.exports = {
         test: /\.css$/,
         loaders: [
           'style-loader',
-          'css?modules'
+          'css-loader?modules'
         ]
       }
       ]
