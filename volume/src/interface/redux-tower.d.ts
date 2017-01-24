@@ -16,6 +16,7 @@ declare module "redux-tower"
 
 declare module "redux-tower/lib/react" {
 	export var Router;
+	export var Link;
 }
 
 declare module 'react-addons-test-utils'
