@@ -15,7 +15,8 @@ const sagaMiddleware = createSagaMiddleware()
 
 const reducer = (state = {}, action) => {
 	switch (action.type) {
-		case 'TEST':
+		case 'poyo':
+			console.log('poyo')
 		default:
 		return state
 	}
