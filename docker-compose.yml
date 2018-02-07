@@ -1,10 +1,11 @@
-server:
- image: "blank_node"
- volumes:
- - "~/Desktop/dockerServerTest/volume:/home/app/"
- container_name: "server"
- ports: 
- - "3000:3000"
- tty: true
- command:
-  "npm start"
+version: "3"
+services:
+  node:
+    container_name: node
+    image: rchaser53/node-alpine
+    tty: true
+    working_dir: /home/app/workspace
+    volumes:
+      - ./workspace/:/home/app/workspace
+    ports:
+     - "3000:3000"
