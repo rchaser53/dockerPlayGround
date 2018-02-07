@@ -9,3 +9,15 @@ services:
       - ./workspace/:/home/app/workspace
     ports:
      - "3000:3000"
+
+  postgres:
+    container_name: postgres
+    image: postgres:9-alpine
+
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+
+  redis:
+    container_name: redis
+    image: redis:4.0.1-alpine

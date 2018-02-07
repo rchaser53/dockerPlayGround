@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    working_directory: ~
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: docker-{{ .Branch }}-{{ checksum "docker-compose.yml" }}-{{ checksum "Dockerfile" }}
+          paths: ~/caches
+
+      - run:
+          command: |
+            set +o pipefail
+            docker load -i ~/caches/images.tar | true
+      - run: docker-compose up -d
+      - run:
+          command: |
+            if [ ! -f ~/caches/images.tar ]; then
+              mkdir -p ~/caches
+              i=1
+              for image in $(docker images -q); do
+                docker save $image -o ./cache/cache_$i &
+                i=`expr $i + 1`
+              done
+            fi
+
+      - save_cache:
+          key: docker-{{ .Branch }}-{{ checksum "docker-compose.yml" }}-{{ checksum "Dockerfile" }}
+          paths: ~/caches
