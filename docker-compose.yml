@@ -12,12 +12,12 @@ services:
 
   postgres:
     container_name: postgres
-    image: postgres:9-alpine
+    image: postgres:9.6.6-alpine
 
   nginx:
     container_name: nginx
-    image: nginx:alpine
+    image: nginx:1.13.8-alpine
 
   redis:
     container_name: redis
-    image: redis:4.0.1-alpine
+    image: redis:4.0.8-alpine

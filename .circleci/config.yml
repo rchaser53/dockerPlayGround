@@ -15,7 +15,10 @@ jobs:
           command: |
             set +o pipefail
             docker load -i ~/caches/images.tar | true
-      - run: docker-compose up -d
+      - run:
+          command: |
+            docker login -u rchaser53 -p $DOCKER_PASSWORD
+            docker-compose up -d
       - run:
           command: |
             if [ ! -f ~/caches/images.tar ]; then
