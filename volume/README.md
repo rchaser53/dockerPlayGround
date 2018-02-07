@@ -1,2 +1,0 @@
-# dockerPlayGround
-docker playground
