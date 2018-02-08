@@ -13,10 +13,12 @@ jobs:
 
       - run:
           command: |
-            set +o pipefail
+            # set +o pipefail
             # docker load -i ~/caches/images.tar | true
+            echo 0
             for image in $(ls ~/caches); do
-              docker load -i ~/caches/$image
+              echo 1
+              docker load -i ~/caches/$image | true
             done
       - run:
           command: |
