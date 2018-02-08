@@ -14,18 +14,22 @@ jobs:
       - run:
           command: |
             set +o pipefail
-            docker load -i ~/caches/images.tar | true
+            # docker load -i ~/caches/images.tar | true
+            for image in $(ls ~/caches); do
+              docker load -i ~/caches/$image &
+            done
       - run:
           command: |
             docker login -u rchaser53 -p $DOCKER_PASSWORD
             docker-compose up -d
       - run:
           command: |
-            if [ ! -f ~/caches/images.tar ]; then
+            # if [ ! -f ~/caches/images.tar ]; then
+            if [ ! -f ~/caches/cache_1.tar ]; then
               mkdir -p ~/caches
               i=1
               for image in $(docker images -q); do
-                docker save $image -o ./cache/cache_$i &
+                docker save $image -o ~/caches/cache_$i &
                 i=`expr $i + 1`
               done
             fi
